@@ -1,0 +1,13 @@
+
+
+salesforce:
+  instance:
+    apiVersion: v48.0
+    instanceId: ottimizza.my
+
+  oauth:
+    clientId: .
+    clientSecret: .
+    username: .
+    password: .
+  
