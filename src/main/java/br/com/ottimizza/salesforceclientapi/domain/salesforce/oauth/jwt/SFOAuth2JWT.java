@@ -53,6 +53,8 @@ public class SFOAuth2JWT {
             return Base64.encodeBase64URLSafeString(signature.sign());
 
         } catch (Exception ex) {
+            System.out.println("\nGot an exception signing the JWT! Check it out:");
+            System.out.println(ex.getMessage());
         }
         return "";
     }
