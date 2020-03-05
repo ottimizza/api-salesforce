@@ -29,7 +29,7 @@ public class SFOAuth2JWTRequestBody implements Serializable {
         return request;
     }
 
-    private String encoded() {
+    public String encoded() {
         return MessageFormat.format("grant_type={0}&assertion={1}", grantType, assertion);
     }
 
