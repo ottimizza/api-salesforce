@@ -3,6 +3,23 @@ server:
   servlet:
     context-path: /
 
+oauth2-config:
+  client-id: ${CLIENT_ID:76179baad962d1b8ce4d}
+  client-secret: ${CLIENT_SECRET:8faedc0e6e1520d13f06f787d6760c303f3e8768}
+  server-url: ${OAUTH2_URL:https://development-oauth-server.herokuapp.com}
+
+security:
+  oauth2:
+    client:
+      clientId: ${oauth2-config.client-id}
+      clientSecret: ${oauth2-config.client-secret}
+      accessTokenUri: ${oauth2-config.server-url}/oauth/token
+      userAuthorizationUri: ${oauth2-config.server-url}/oauth/authorize
+
+    resource:
+      userInfoUri: ${oauth2-config.server-url}/user/info
+      tokenInfoUri: ${oauth2-config.server-url}/oauth/check_token
+
 salesforce:
   instance:
     apiVersion: ${SALESFORCE_API_VERSION:v48.0}
@@ -17,3 +34,4 @@ salesforce:
   keystore:
     path: ${KEYSTORE_PATH:classpath:keystore/keystore.jks}
     password: ${KEYSTORE_PASSWORD:ottimizza@123}
+
