@@ -25,7 +25,7 @@ salesforce:
     apiVersion: ${SALESFORCE_API_VERSION:v48.0}
     instanceId: ${SALESFORCE_INSTANCE_ID}
 
-  oauth:
+  oauth2:
     clientId: ${SALESFORCE_CLIENT_ID}
     clientSecret: ${SALESFORCE_CLIENT_SECRET}
     username: ${SALESFORCE_USERNAME}
