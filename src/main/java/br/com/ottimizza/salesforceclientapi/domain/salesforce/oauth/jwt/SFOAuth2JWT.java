@@ -13,6 +13,7 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.core.io.ClassPathResource;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -63,7 +64,7 @@ public class SFOAuth2JWT {
     private PrivateKey loadPrivateKey(String password) {
         try {
             KeyStore keystore = KeyStore.getInstance("JKS");
-            keystore.load(new FileInputStream("classpath:keystore/keystore.jks"), password.toCharArray());
+            keystore.load(new ClassPathResource("classpath:keystore/keystore.jks").getInputStream(), password.toCharArray());
             return (PrivateKey) keystore.getKey("ottimizza_self_signed", password.toCharArray());
         } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
             System.out.println("\nGot an exception loading Private Key! Check it out:");
