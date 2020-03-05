@@ -1,13 +1,18 @@
-
+server:
+  port: ${PORT:9092}
+  servlet:
+    context-path: /
 
 salesforce:
   instance:
-    apiVersion: v48.0
-    instanceId: ottimizza.my
+    apiVersion: ${SALESFORCE_API_VERSION:v48.0}
+    instanceId: ${SALESFORCE_INSTANCE_ID}
 
   oauth:
-    clientId: .
-    clientSecret: .
-    username: .
-    password: .
+    clientId: ${SALESFORCE_CLIENT_ID}
+    clientSecret: ${SALESFORCE_CLIENT_SECRET}
+    username: ${SALESFORCE_USERNAME}
+    password: ${SALESFORCE_PASSWORD}
   
+  keystore:
+    secret: ${KEYSTORE_PATH:classpath:keystore/keystore.jks}
