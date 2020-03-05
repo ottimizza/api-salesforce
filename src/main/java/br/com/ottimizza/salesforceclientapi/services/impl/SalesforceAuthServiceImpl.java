@@ -45,7 +45,7 @@ public class SalesforceAuthServiceImpl implements SalesforceAuthService {
                     SFOAuth2JWTClaim.builder()
                         .iss(oauth2Properties.getClientId())
                         .sub(oauth2Properties.getUsername())
-                        .aud("https://ottimizza.my.salesforce.com")
+                        .aud("https://login.salesforce.com")
                         .exp(now.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli())
                     .build()
                 )
