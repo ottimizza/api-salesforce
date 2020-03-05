@@ -63,7 +63,7 @@ public class SFOAuth2JWTClaim {
     public String payload() {
         return MessageFormat.format(
             "'{'\"iss\": \"{0}\", \"sub\": \"{1}\", \"aud\": \"{2}\", \"exp\": \"{3}\"'}'", 
-            this.iss, this.sub, this.aud, this.exp
+            this.iss, this.sub, this.aud, this.exp.toString()
         );
     }
 
