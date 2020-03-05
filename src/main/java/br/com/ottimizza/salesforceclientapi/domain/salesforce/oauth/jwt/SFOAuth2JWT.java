@@ -62,7 +62,7 @@ public class SFOAuth2JWT {
         try {
             KeyStore keystore = KeyStore.getInstance("JKS");
             keystore.load(new FileInputStream("classpath:keystore/keystore.jks"), this.password.toCharArray());
-            return (PrivateKey) keystore.getKey("certalias", this.password.toCharArray());
+            return (PrivateKey) keystore.getKey("ottimizza_self_signed", this.password.toCharArray());
         } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
 
         } catch (CertificateException certificateException) {
