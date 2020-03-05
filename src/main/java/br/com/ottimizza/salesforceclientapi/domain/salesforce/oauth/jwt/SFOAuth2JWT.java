@@ -61,7 +61,7 @@ public class SFOAuth2JWT {
     private PrivateKey loadPrivateKey() {
         try {
             KeyStore keystore = KeyStore.getInstance("JKS");
-            keystore.load(new FileInputStream("./path/to/keystore.jks"), this.password.toCharArray());
+            keystore.load(new FileInputStream("classpath:keystore/keystore.jks"), this.password.toCharArray());
             return (PrivateKey) keystore.getKey("certalias", this.password.toCharArray());
         } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
 
