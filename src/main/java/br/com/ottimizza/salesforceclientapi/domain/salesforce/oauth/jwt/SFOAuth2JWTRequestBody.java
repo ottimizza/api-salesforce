@@ -22,10 +22,10 @@ public class SFOAuth2JWTRequestBody implements Serializable {
     @JsonProperty("assertion")
     private String assertion;
 
-    public static SFOAuth2JWTRequestBody fromSFOAuth2JWT(SFOAuth2JWT jwt) throws Exception {
+    public static SFOAuth2JWTRequestBody fromSFOAuth2JWT(SFOAuth2JWT jwt, String password) throws Exception {
         SFOAuth2JWTRequestBody request = new SFOAuth2JWTRequestBody();
         request.setGrantType("urn:ietf:params:oauth:grant-type:jwt-bearer");
-        request.setAssertion(jwt.buildSFJWTAccessToken());
+        request.setAssertion(jwt.buildSFJWTAccessToken(password));
         return request;
     }
 

@@ -54,7 +54,7 @@ public class SalesforceAuthServiceImpl implements SalesforceAuthService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
-        String body = SFOAuth2JWTRequestBody.fromSFOAuth2JWT(jwt).encoded();
+        String body = SFOAuth2JWTRequestBody.fromSFOAuth2JWT(jwt, this.password).encoded();
 
         System.out.println();
         System.out.println();

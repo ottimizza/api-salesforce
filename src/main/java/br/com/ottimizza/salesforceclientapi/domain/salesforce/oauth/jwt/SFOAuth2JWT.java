@@ -31,8 +31,8 @@ public class SFOAuth2JWT {
 
     private String password;
 
-    public String buildSFJWTAccessToken() throws Exception {
-        return encodedJWT() + "." + signedJWT();
+    public String buildSFJWTAccessToken(String password) throws Exception {
+        return encodedJWT() + "." + signedJWT(password);
     }
 
     private String encodedJWT() throws UnsupportedEncodingException {
@@ -41,9 +41,9 @@ public class SFOAuth2JWT {
         return encodedJWTHeader + "." + encodedJWTClaimsSet;
     }
 
-    private String signedJWT() throws Exception {
+    private String signedJWT(String password) throws Exception {
         try {
-            PrivateKey privateKey = loadPrivateKey();
+            PrivateKey privateKey = loadPrivateKey(password);
 
             // Sign the JWT Header + "." + JWT Claims Object
             Signature signature = Signature.getInstance("SHA256withRSA");
@@ -60,11 +60,11 @@ public class SFOAuth2JWT {
     }
 
 
-    private PrivateKey loadPrivateKey() {
+    private PrivateKey loadPrivateKey(String password) {
         try {
             KeyStore keystore = KeyStore.getInstance("JKS");
-            keystore.load(new FileInputStream("classpath:keystore/keystore.jks"), this.password.toCharArray());
-            return (PrivateKey) keystore.getKey("ottimizza_self_signed", this.password.toCharArray());
+            keystore.load(new FileInputStream("classpath:keystore/keystore.jks"), password.toCharArray());
+            return (PrivateKey) keystore.getKey("ottimizza_self_signed", password.toCharArray());
         } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
 
         } catch (CertificateException certificateException) {
