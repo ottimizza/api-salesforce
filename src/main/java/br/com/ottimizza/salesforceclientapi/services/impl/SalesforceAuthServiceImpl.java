@@ -1,5 +1,9 @@
 package br.com.ottimizza.salesforceclientapi.services.impl;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -35,13 +39,14 @@ public class SalesforceAuthServiceImpl implements SalesforceAuthService {
     }
 
     private SFOAuth2JWT buildJWT() { // @formatter:off
+        LocalDateTime now = LocalDateTime.now().plusMinutes(2);
         return SFOAuth2JWT.builder()
                 .claims(
                     SFOAuth2JWTClaim.builder()
                         .iss(oauth2Properties.getClientId())
                         .sub(oauth2Properties.getUsername())
                         .aud("https://login.salesforce.com")
-                        .exp(1333685628L)
+                        .exp(now.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli())
                     .build()
                 )
                 .password(password)
