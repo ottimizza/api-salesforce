@@ -15,4 +15,5 @@ salesforce:
     password: ${SALESFORCE_PASSWORD}
   
   keystore:
-    secret: ${KEYSTORE_PATH:classpath:keystore/keystore.jks}
+    path: ${KEYSTORE_PATH:classpath:keystore/keystore.jks}
+    password: ${KEYSTORE_PASSWORD:ottimizza@123}
