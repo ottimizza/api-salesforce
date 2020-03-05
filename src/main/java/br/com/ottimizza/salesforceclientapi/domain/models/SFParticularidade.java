@@ -1,13 +1,13 @@
 package br.com.ottimizza.salesforceclientapi.domain.models;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
 
 @Data
-public class SFParticularidade implements Serializable {
+public class SFParticularidade extends SFObject {
+
+    public static final String S_NAME = "Particularidade__c";
 
     private static final long serialVersionUID = 1L;
 
