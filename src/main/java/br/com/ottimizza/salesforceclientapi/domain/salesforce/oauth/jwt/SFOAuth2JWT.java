@@ -66,19 +66,26 @@ public class SFOAuth2JWT {
             keystore.load(new FileInputStream("classpath:keystore/keystore.jks"), password.toCharArray());
             return (PrivateKey) keystore.getKey("ottimizza_self_signed", password.toCharArray());
         } catch (NoSuchAlgorithmException noSuchAlgorithmException) {
-
+            System.out.println("\nGot an exception loading Private Key! Check it out:");
+            System.out.println(noSuchAlgorithmException.getMessage());
         } catch (CertificateException certificateException) {
-
+            System.out.println("\nGot an exception loading Private Key! Check it out:");
+            System.out.println(certificateException.getMessage());
         } catch (SecurityException securityException) {
-
+            System.out.println("\nGot an exception loading Private Key! Check it out:");
+            System.out.println(securityException.getMessage());
         } catch (NoSuchFileException noSuchFileException) {
-
+            System.out.println("\nGot an exception loading Private Key! Check it out:");
+            System.out.println(noSuchFileException.getMessage());
         } catch (KeyStoreException keyStoreException) {
-
+            System.out.println("\nGot an exception loading Private Key! Check it out:");
+            System.out.println(keyStoreException.getMessage());
         } catch (UnrecoverableKeyException unrecoverableKeyException) {
-
+            System.out.println("\nGot an exception loading Private Key! Check it out:");
+            System.out.println(unrecoverableKeyException.getMessage());
         } catch (IOException ioException) {
-
+            System.out.println("\nGot an exception loading Private Key! Check it out:");
+            System.out.println(ioException.getMessage());
         }
 
         return null;
