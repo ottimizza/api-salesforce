@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Configuration
-@ConfigurationProperties(prefix = "salesforce.service")
+@ConfigurationProperties(prefix = "salesforce.instance")
 public class SFInstanceProperties {
 
     @NotBlank
