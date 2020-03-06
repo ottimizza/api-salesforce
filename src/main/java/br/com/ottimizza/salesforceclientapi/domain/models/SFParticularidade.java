@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class SFParticularidade extends SFObject {
 
-    public static final String S_NAME = "Particularidade__c";
+    public static final String S_NAME = "Roteiros_vs_Contas__c";
 
     private static final long serialVersionUID = 1L;
 

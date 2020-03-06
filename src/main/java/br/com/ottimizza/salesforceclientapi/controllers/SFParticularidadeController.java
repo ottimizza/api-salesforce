@@ -17,7 +17,7 @@ import br.com.ottimizza.salesforceclientapi.services.SFParticularidadeService;
 import br.com.ottimizza.salesforceclientapi.services.SalesforceAuthService;
 
 @RestController
-@RequestMapping("/api/v1/salesforce/Particularidade__c")
+@RequestMapping("/api/v1/salesforce/Roteiros_vs_Contas__c")
 public class SFParticularidadeController {
 
     @Inject
