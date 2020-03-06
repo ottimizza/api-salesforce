@@ -31,6 +31,21 @@ public class SalesforceController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/sobjects/{objectId}/{salesforceId}")
+    public ResponseEntity<?> fetchBySalesforceId(@PathVariable("objectId") String objectId,
+                                    @PathVariable("salesforceId") String salesforceId,
+                                    OAuth2Authentication authentication) throws Exception {
+        return ResponseEntity.ok(salesforceService.fetchBySalesforceId(objectId, salesforceId));
+    }
+
+    @GetMapping("/sobjects/{objectId}/{externalIdName}/{externalId}")
+    public ResponseEntity<?> fetchByExternalId(@PathVariable("objectId") String objectId,
+                                    @PathVariable("externalIdName") String externalIdName, 
+                                    @PathVariable("externalId") String externalId,
+                                    OAuth2Authentication authentication) throws Exception {
+        return ResponseEntity.ok(salesforceService.fetchByExternalId(objectId, externalIdName, externalId));
+    }
+
     @PostMapping("/sobjects/{objectId}")
     public ResponseEntity<?> create(@PathVariable("objectId") String objectId, 
                                     @RequestBody String object,
@@ -46,5 +61,11 @@ public class SalesforceController {
                                     OAuth2Authentication authentication) throws Exception {
         return ResponseEntity.ok(salesforceService.upsert(objectId, externalIdName, externalId, object));
     }
-    
+
+    @GetMapping("/resolve_url")
+    public ResponseEntity<?> resolveURL(@RequestParam("url") String url,
+                                    OAuth2Authentication authentication) throws Exception {
+        return ResponseEntity.ok(salesforceService.resolveURL(url));
+    }
+
 }

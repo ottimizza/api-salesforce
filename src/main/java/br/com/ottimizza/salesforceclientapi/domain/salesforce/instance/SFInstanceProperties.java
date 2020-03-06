@@ -33,5 +33,11 @@ public class SFInstanceProperties {
     public String buildServiceUrl(String path, Object... args) {
         return MessageFormat.format(this.getSaleforceServiceUrl() + path, args);
     }
+    public String buildServiceUrl(String path) {
+        return this.getSaleforceServiceUrl() + path;
+    }
+    public String buildUrlFromDomain(String path) {
+        return MessageFormat.format("https://{0}.salesforce.com", this.instanceId) + path;
+    }
 
 }

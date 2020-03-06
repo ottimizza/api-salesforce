@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
@@ -27,30 +28,16 @@ public class SalesforceService {
 
     public String fetchBySalesforceId(String objectId, String id) throws Exception {
         authentication = salesforceAuthService.authorize();
-        RestTemplate template = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + authentication.getAccessToken());
-
-        String url = this.instanceProperties.buildServiceUrl("/sobjects/{0}/{}", objectId, id);
-
-        return template.getForObject(url, String.class);
+        String url = this.instanceProperties.buildServiceUrl("/sobjects/{0}/{1}", objectId, id);
+        return defaultGet(url);
     }
 
     public String fetchByExternalId(String objectId, String externalIdName, String externalId) throws Exception {
         authentication = salesforceAuthService.authorize();
-        RestTemplate template = new RestTemplate();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + authentication.getAccessToken());
-
         String url = this.instanceProperties.buildServiceUrl(
             "/sobjects/{0}/{1}/{2}", objectId, externalIdName, externalId
         );
-
-        return template.getForObject(url, String.class);
+        return defaultGet(url);
     }
 
     public String insert(String objectId, String object) throws Exception {
@@ -78,6 +65,27 @@ public class SalesforceService {
         return defaultPatch(url, object);
     }
 
+    public String resolveURL(String salesforceUrl) throws Exception {
+        authentication = salesforceAuthService.authorize();
+        String url = this.instanceProperties.buildUrlFromDomain(salesforceUrl);
+        return defaultGet(url);
+    }
+
+    private String defaultGet(String url) {
+        RestTemplate template = new RestTemplate();
+
+        HttpComponentsClientHttpRequestFactory requestFactory = new HttpComponentsClientHttpRequestFactory();
+        requestFactory.setConnectTimeout(15000);
+        requestFactory.setReadTimeout(15000);
+
+        template.setRequestFactory(requestFactory);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + authentication.getAccessToken());
+
+        return template.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), String.class).getBody();
+    }
 
     private String defaultPatch(String url, String body) {
         RestTemplate template = new RestTemplate();
