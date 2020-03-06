@@ -68,4 +68,10 @@ public class SalesforceController {
         return ResponseEntity.ok(salesforceService.resolveURL(url));
     }
 
+    @GetMapping("/execute_soql")
+    public ResponseEntity<?> executeSOQL(@RequestParam("soql") String soql,
+                                    OAuth2Authentication authentication) throws Exception {
+        return ResponseEntity.ok(salesforceService.executeSOQL(soql));
+    }
+
 }

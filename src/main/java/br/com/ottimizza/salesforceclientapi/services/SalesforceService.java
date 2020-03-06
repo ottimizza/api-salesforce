@@ -65,6 +65,12 @@ public class SalesforceService {
         return defaultPatch(url, object);
     }
 
+    public String executeSOQL(String query) throws Exception {
+        authentication = salesforceAuthService.authorize();
+        String url = this.instanceProperties.buildServiceUrl("/query?q={0}", query);
+        return defaultGet(url);
+    }
+    
     public String resolveURL(String salesforceUrl) throws Exception {
         authentication = salesforceAuthService.authorize();
         String url = this.instanceProperties.buildUrlFromDomain(salesforceUrl);

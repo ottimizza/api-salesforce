@@ -29,7 +29,6 @@ public class SFInstanceProperties {
     public String getSaleforceServiceUrl() {
         return MessageFormat.format("https://{0}.salesforce.com/services/data/{1}", this.instanceId, this.apiVersion);
     }
-
     public String buildServiceUrl(String path, Object... args) {
         return MessageFormat.format(this.getSaleforceServiceUrl() + path, args);
     }
