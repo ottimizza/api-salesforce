@@ -22,15 +22,10 @@ public class SalesforceService {
     @Inject
     SFInstanceProperties instanceProperties;
 
-    SFOAuth2Authentication authentication;
-
-    @Autowired
-    public SalesforceService() throws Exception {
-        // realiza autenticação no salesforce.
-        authentication = salesforceAuthService.authorize();
-    }
+    SFOAuth2Authentication authentication = new SFOAuth2Authentication();
 
     public String insert(String objectId, String object) throws Exception {
+        authentication = salesforceAuthService.authorize();
         RestTemplate template = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -45,6 +40,7 @@ public class SalesforceService {
     }
 
     public String upsert(String objectId, String externalIdName, String externalId, String object) throws Exception {
+        authentication = salesforceAuthService.authorize();
         RestTemplate template = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
