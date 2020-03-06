@@ -24,6 +24,34 @@ public class SalesforceService {
 
     SFOAuth2Authentication authentication = new SFOAuth2Authentication();
 
+    public String fetchBySalesforceId(String objectId, String id) throws Exception {
+        authentication = salesforceAuthService.authorize();
+        RestTemplate template = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + authentication.getAccessToken());
+
+        String url = this.instanceProperties.buildServiceUrl("/sobjects/{0}/{}", objectId, id);
+
+        return template.getForObject(url, String.class);
+    }
+
+    public String fetchByExternalId(String objectId, String externalIdName, String externalId) throws Exception {
+        authentication = salesforceAuthService.authorize();
+        RestTemplate template = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + authentication.getAccessToken());
+
+        String url = this.instanceProperties.buildServiceUrl(
+            "/sobjects/{0}/{1}/{2}", objectId, externalIdName, externalId
+        );
+
+        return template.getForObject(url, String.class);
+    }
+
     public String insert(String objectId, String object) throws Exception {
         authentication = salesforceAuthService.authorize();
         RestTemplate template = new RestTemplate();
@@ -53,7 +81,7 @@ public class SalesforceService {
             "/sobjects/{0}/{1}/{2}", objectId, externalIdName, externalId
         );
 
-        return template.postForObject(url, request, String.class);
+        return template.patchForObject(url, request, String.class);
     }
 
 
