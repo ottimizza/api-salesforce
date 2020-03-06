@@ -26,9 +26,11 @@ public class SalesforceController {
     @Inject
     SalesforceService salesforceService;
 
-    @GetMapping("/sobjects/{objectName}")
-    public ResponseEntity<?> query(@RequestParam("q") String query, OAuth2Authentication authentication) {
-        return ResponseEntity.ok().build();
+    @PostMapping("/composite/tree/{objectId}")
+    public ResponseEntity<?> createMultipleRecords(@PathVariable("objectId") String objectId, 
+                                    @RequestBody String object,
+                                    OAuth2Authentication authentication) throws Exception {
+        return ResponseEntity.ok(salesforceService.insertMultiple(objectId, object));
     }
 
     @GetMapping("/sobjects/{objectId}/{salesforceId}")

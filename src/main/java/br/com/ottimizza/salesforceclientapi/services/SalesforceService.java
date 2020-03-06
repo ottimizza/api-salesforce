@@ -40,6 +40,21 @@ public class SalesforceService {
         return defaultGet(url);
     }
 
+    public String insertMultiple(String objectId, String object) throws Exception {
+        authentication = salesforceAuthService.authorize();
+        RestTemplate template = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + authentication.getAccessToken());
+
+        HttpEntity<String> request = new HttpEntity<String>(object, headers);
+
+        String url = this.instanceProperties.buildServiceUrl("/composite/tree/{0}", objectId);
+
+        return template.postForObject(url, request, String.class);
+    }
+
     public String insert(String objectId, String object) throws Exception {
         authentication = salesforceAuthService.authorize();
         RestTemplate template = new RestTemplate();
