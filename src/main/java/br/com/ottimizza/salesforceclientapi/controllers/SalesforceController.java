@@ -1,5 +1,6 @@
 package br.com.ottimizza.salesforceclientapi.controllers;
 
+import br.com.ottimizza.salesforceclientapi.constraints.MethodExecution;
 import javax.inject.Inject;
 
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.ottimizza.salesforceclientapi.domain.models.SFParticularidade;
-import br.com.ottimizza.salesforceclientapi.domain.salesforce.instance.SFInstanceProperties;
-import br.com.ottimizza.salesforceclientapi.services.SFParticularidadeService;
-import br.com.ottimizza.salesforceclientapi.services.SalesforceAuthService;
 import br.com.ottimizza.salesforceclientapi.services.SalesforceService;
 
 @RestController
@@ -72,8 +69,9 @@ public class SalesforceController {
 
     @GetMapping("/execute_soql")
     public ResponseEntity<?> executeSOQL(@RequestParam("soql") String soql,
+                                         @RequestParam(defaultValue = "1", required = false) int methodExecution,
                                     OAuth2Authentication authentication) throws Exception {
-        return ResponseEntity.ok(salesforceService.executeSOQL(soql));
+        return ResponseEntity.ok(salesforceService.executeSOQL(soql, methodExecution));
     }
 
 }

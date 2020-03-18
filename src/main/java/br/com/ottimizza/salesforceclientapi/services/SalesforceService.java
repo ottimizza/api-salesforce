@@ -1,9 +1,8 @@
 package br.com.ottimizza.salesforceclientapi.services;
 
+import br.com.ottimizza.salesforceclientapi.constraints.MethodExecution;
 import javax.inject.Inject;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -14,6 +13,10 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.ottimizza.salesforceclientapi.domain.salesforce.instance.SFInstanceProperties;
 import br.com.ottimizza.salesforceclientapi.domain.salesforce.oauth.SFOAuth2Authentication;
+import br.com.ottimizza.salesforceclientapi.dao.SalesForceDao;
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+
 
 @Service
 public class SalesforceService {
@@ -23,6 +26,9 @@ public class SalesforceService {
 
     @Inject
     SFInstanceProperties instanceProperties;
+    
+    @Autowired
+    private SalesForceDao salesForceDao;
 
     SFOAuth2Authentication authentication = new SFOAuth2Authentication();
 
@@ -80,10 +86,16 @@ public class SalesforceService {
         return defaultPatch(url, object);
     }
 
-    public String executeSOQL(String query) throws Exception {
-        authentication = salesforceAuthService.authorize();
-        String url = this.instanceProperties.buildServiceUrl("/query?q={0}", query);
-        return defaultGet(url);
+    public <T> T executeSOQL(String query, int methodExecution) throws Exception {
+        switch (methodExecution){
+            case MethodExecution.REST:
+            default:
+                authentication = salesforceAuthService.authorize();
+                String url = this.instanceProperties.buildServiceUrl("/query?q={0}", query);
+                return (T) defaultGet(url);
+            case MethodExecution.HEROKU_CONNECT:
+                return (T) salesForceDao.executeQueryOnMirroredDatabase(query);
+       }
     }
     
     public String resolveURL(String salesforceUrl) throws Exception {
