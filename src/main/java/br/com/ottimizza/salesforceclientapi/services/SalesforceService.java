@@ -14,8 +14,6 @@ import org.springframework.web.client.RestTemplate;
 import br.com.ottimizza.salesforceclientapi.domain.salesforce.instance.SFInstanceProperties;
 import br.com.ottimizza.salesforceclientapi.domain.salesforce.oauth.SFOAuth2Authentication;
 import br.com.ottimizza.salesforceclientapi.dao.SalesForceDao;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Service
@@ -27,7 +25,7 @@ public class SalesforceService {
     @Inject
     SFInstanceProperties instanceProperties;
     
-    @Autowired
+    @Inject
     private SalesForceDao salesForceDao;
 
     SFOAuth2Authentication authentication = new SFOAuth2Authentication();
