@@ -60,6 +60,15 @@ public class SalesforceController {
                                     OAuth2Authentication authentication) throws Exception {
         return ResponseEntity.ok(salesforceService.upsert(objectId, externalIdName, externalId, object));
     }
+    
+    @PostMapping("/sobjects/{objectId}/{externalIdName}/{externalId}")
+    public ResponseEntity<?> postUpsert(@PathVariable("objectId") String objectId,
+                                    @PathVariable("externalIdName") String externalIdName, 
+                                    @PathVariable("externalId") String externalId,
+                                    @RequestBody String object,
+                                    OAuth2Authentication authentication) throws Exception {
+        return ResponseEntity.ok(salesforceService.upsert(objectId, externalIdName, externalId, object));
+    }
 
     @GetMapping("/resolve_url")
     public ResponseEntity<?> resolveURL(@RequestParam("url") String url,
