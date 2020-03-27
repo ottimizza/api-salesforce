@@ -8,6 +8,25 @@ oauth2-config:
   client-secret: ${CLIENT_SECRET:8faedc0e6e1520d13f06f787d6760c303f3e8768}
   server-url: ${OAUTH2_URL:https://development-oauth-server.herokuapp.com}
 
+spring:
+    datasource:
+        url: jdbc:postgresql://ec2-18-213-176-229.compute-1.amazonaws.com:5432/dd6k204tvumd0g
+        username: ehncqxkufegxkv
+        password: a1759be25c60f8d389c8943adf8dbdb9cb4b04e19ef7536f2be8f3da276bf3b6
+        driver-class-name: org.postgresql.Driver
+
+    jpa:
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+        generate-ddl: true
+        hibernate:
+            ddl-auto: validate
+        show-sql: ${HIBERNATE_SHOW_SQL:false}
+        properties:
+            hibernate:
+                generate_statistics: ${HIBERNATE_STATISTICS:false}
+                temp:
+                    use_jdbc_metadata_defaults: false
+
 security:
   oauth2:
     client:
