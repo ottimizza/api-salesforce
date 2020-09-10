@@ -8,11 +8,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
 import org.springframework.security.oauth2.provider.token.RemoteTokenServices;
 import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
+import org.springframework.security.web.firewall.DefaultHttpFirewall;
+import org.springframework.security.web.firewall.HttpFirewall;
 
 @Configuration // @formatter:off
 @EnableOAuth2Client
@@ -26,6 +29,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Value("${oauth2-config.client-secret}")
     private String OAUTH2_CLIENT_SECRET;
+
+    /**
+     * This both methods beans are used to allow the usage of slash characters
+     * in a resource url. (path param - even if encoded!!)
+     * 
+     * Example: 
+     *      "/api/v1/.../Contabilidade__c/CNPJ__c/20.000.000%2F0000-00"
+     *  
+     * in the example abova spring would automatically block the request and
+     * throw a 400 status.
+     * 
+     * So, we have to override the default HTTP Security Firewall.
+     */
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        DefaultHttpFirewall firewall = new DefaultHttpFirewall();
+        firewall.setAllowUrlEncodedSlash(true);
+        return firewall;
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
