@@ -42,6 +42,9 @@ public class SalesforceService {
         String url = this.instanceProperties.buildServiceUrl(
             "/sobjects/{0}/{1}/{2}", objectId, externalIdName, StringUtils.encodeValue(externalId)
         );
+
+        System.out.println(url);
+
         return defaultGet(url);
     }
 
