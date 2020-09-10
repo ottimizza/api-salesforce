@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.ottimizza.salesforceclientapi.domain.salesforce.instance.SFInstanceProperties;
 import br.com.ottimizza.salesforceclientapi.domain.salesforce.oauth.SFOAuth2Authentication;
+import br.com.ottimizza.salesforceclientapi.domain.utils.StringUtils;
 import br.com.ottimizza.salesforceclientapi.dao.SalesForceDao;
 
 
@@ -39,7 +40,7 @@ public class SalesforceService {
     public String fetchByExternalId(String objectId, String externalIdName, String externalId) throws Exception {
         authentication = salesforceAuthService.authorize();
         String url = this.instanceProperties.buildServiceUrl(
-            "/sobjects/{0}/{1}/{2}", objectId, externalIdName, externalId
+            "/sobjects/{0}/{1}/{2}", objectId, externalIdName, StringUtils.encodeValue(externalId)
         );
         return defaultGet(url);
     }
