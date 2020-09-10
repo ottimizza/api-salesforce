@@ -42,17 +42,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * 
      * So, we have to override the default HTTP Security Firewall.
      */
-    @Bean
-    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
-        DefaultHttpFirewall firewall = new DefaultHttpFirewall();
-        firewall.setAllowUrlEncodedSlash(true);
-        return firewall;
-    }
+    // @Bean
+    // public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+    //     DefaultHttpFirewall firewall = new DefaultHttpFirewall();
+    //     firewall.setAllowUrlEncodedSlash(true);
+    //     return firewall;
+    // }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
-    }
+    // @Override
+    // public void configure(WebSecurity web) throws Exception {
+    //     web.httpFirewall(allowUrlEncodedSlashHttpFirewall());
+    // }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

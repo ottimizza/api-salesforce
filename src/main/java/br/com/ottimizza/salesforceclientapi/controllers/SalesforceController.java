@@ -37,7 +37,7 @@ public class SalesforceController {
         return ResponseEntity.ok(salesforceService.fetchBySalesforceId(objectId, salesforceId));
     }
 
-    @GetMapping("/sobjects/{objectId}/{externalIdName}/{externalId}")
+    @GetMapping("/sobjects/{objectId}/{externalIdName}/{externalId:.*}")
     public ResponseEntity<?> fetchByExternalId(@PathVariable("objectId") String objectId,
                                     @PathVariable("externalIdName") String externalIdName, 
                                     @PathVariable("externalId") String externalId,
